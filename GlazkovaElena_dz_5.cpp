@@ -1,9 +1,9 @@
 //{===========================================================================
 //! @file       GlazkovaElena_dz_5.cpp
 //!
-//! @brief      Пример мультфильма
+//! @brief      РџСЂРёРјРµСЂ РјСѓР»СЊС‚С„РёР»СЊРјР°
 //!
-//!             проба пера с использованием (TX Library, TXLib, CodeBlocks).
+//!             РїСЂРѕР±Р° РїРµСЂР° СЃ РёСЃРїРѕР»СЊР·РѕРІР°РЅРёРµРј (TX Library, TXLib, CodeBlocks).
 //!
 //!             $Date: 2021-04-14$
 //!             $Copyright: (C) EVGoLet/CodeBlocks (Elena Glazkova) <oleterterra@gmail.com> $
@@ -21,7 +21,7 @@ int main ()
     SkyDraw     (0, 0, 800, 440);
     GrassDraw   (0, 440, 800, 600);
     SunDraw     (120, 90, 50, 1) ;
-//    ChildrenDraw (500, 450, 50, 100, TX_RED, 0, 0, 0, 0);
+    ChildrenDraw (500, 450, 50, 100, TX_RED, 0, 0, 0, 0);
 //    WoodDraw (650, 450, 1, TX_GREEN);
 //    AirplaneDraw (200, 100, 30);
 //    AirplaneDraw (450, 100, 30);
