@@ -1,16 +1,26 @@
+//{===========================================================================
+//! @file       GlazkovaElena_dz_5.cpp
+//!
+//! @brief      Пример мультфильма
+//!
+//!             проба пера с использованием (TX Library, TXLib, CodeBlocks).
+//!
+//!             $Date: 2021-04-14$
+//!             $Copyright: (C) EVGoLet/CodeBlocks (Elena Glazkova) <oleterterra@gmail.com> $
+//}===========================================================================
 #include "TXLib.h"
 
-void SkyDraw (int x1, int y1, int x2, int y2);
-void GrassDraw (int x1, int y1, int x2, int y2);
-void SunDraw (int x, int y, int r, double size);
+void SkyDraw    (int x1, int y1, int x2, int y2);
+void GrassDraw  (int x1, int y1, int x2, int y2);
+void SunDraw    (int x,  int y,  int r,  double size);
 
 int main ()
     {
     txCreateWindow (800, 600);
 
-    SkyDraw (0, 0, 800, 440);
-    GrassDraw (0, 440, 800, 600);
-    SunDraw (120, 90, 50, 1) ;
+    SkyDraw     (0, 0, 800, 440);
+    GrassDraw   (0, 440, 800, 600);
+    SunDraw     (120, 90, 50, 1) ;
 //    ChildrenDraw (500, 450, 50, 100, TX_RED, 0, 0, 0, 0);
 //    WoodDraw (650, 450, 1, TX_GREEN);
 //    AirplaneDraw (200, 100, 30);
