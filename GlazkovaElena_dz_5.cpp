@@ -1,7 +1,7 @@
 //{===========================================================================
 //! @file       GlazkovaElena_dz_5.cpp
 //!
-//! @brief      Primer multfilma
+//! @brief      example cartoon
 //!
 //!             pen test using (TX Library, TXLib, CodeBlocks).
 //!
@@ -9,8 +9,9 @@
 //!             $Copyright: (C) EVGoLet/CodeBlocks (Elena Glazkova) <oleterterra@gmail.com> $
 //}===========================================================================
 #include "TXLib.h"
-
 void StartTitles();
+void StarDraw   (double x, double y,double size,COLORREF starColor);
+
 void SkyDraw    (int x1, int y1, int x2, int y2);
 void GrassDraw  (int x1, int y1, int x2, int y2);
 void SunDraw    (int x,  int y,  int r,  double size);
@@ -21,9 +22,11 @@ int main ()
     txCreateWindow (800, 600);
 
     StartTitles();
-    SkyDraw     (0, 0, 800, 440);
-    GrassDraw   (0, 440, 800, 600);
-    SunDraw     (120, 90, 50, 1) ;
+
+  //  SkyDraw     (0, 0, 800, 440);
+  //  GrassDraw   (0, 440, 800, 600);
+ //   SunDraw     (120, 90, 50, 1) ;
+
  //   CrowDraw    (
 //    ChildrenDraw (500, 450, 50, 100, TX_RED, 0, 0, 0, 0);
 //    WoodDraw (650, 450, 1, TX_GREEN);
@@ -43,46 +46,75 @@ int main ()
  *     IronMenDraw (400, 350, 50, 50, TX_GRAY);
  *     ChildrenDraw (300, 450, 50, 100, TX_RED, 0, 0, 0, 0);
  */
-    SunDraw (620, 60, 20, 0.5) ;
-    SunDraw (420, 260, 10, 0.3) ;
+  //  SunDraw (620, 60, 20, 0.5) ;
+ //  SunDraw (420, 260, 10, 0.3) ;
 
     return 0;
+    }
+
+void StarDraw   (double x, double y, double size, COLORREF starColor)
+    {
+    int j = 0;
+    txSetColor     (starColor);
+    txSetFillColor (starColor);
+/*
+ */
+        POINT star[8] = {{x, y - 90*size}, {x + 30*size, y - 30*size}, {x + 90*size, y},
+                        {x + 30*size, y + 30*size}, {x, y + 90*size}, {x - 30*size, y + 30*size},
+                        {x - 90*size, y},{x - 30*size, y - 30*size} };
+          txPolygon (star, 8);
+
+/*         txLine (x,           y - 90*size, x + 30*size, y - 30*size);
+ *         txLine (x + 30*size, y - 30*size, x + 90*size, y);
+ *         txLine (x + 90*size, y,           x + 30*size, y + 30*size);
+ *         txLine (x + 30*size, y + 30*size, x,           y + 90*size);
+ *         txLine (x,           y + 90*size, x - 30*size, y + 30*size);
+ *         txLine (x - 30*size, y + 30*size, x - 90*size, y);
+ *         txLine (x - 90*size, y,           x - 30*size, y - 30*size);
+ *         txLine (x - 30*size, y - 30*size, x,           y - 90*size);
+ */
+
+  //      }
     }
 
 void StartTitles()
     {
    // txPlaySound ("музыка");
     int t = 0;
+
     while (t <= 75)
         {
         txClear();
+
         txSetFillColor (RGB(255 - t*3, 255 - t*3, 255 - t*3));
-        txSetColor (TX_WHITE);
+        txSetColor     (TX_WHITE);
+
         txSelectFont ("Segoe Script", 80);
         txTextOut (800 - t*10, 100, "Если");
         txTextOut (850 - t*10, 150, " звезды ");
         txTextOut (900 - t*10, 200, "  зажигаются,");
-        txSleep (50);
+        Sleep (50);
         t++;
         }
+     for (int i = 1; i<=5; i++)
+        {
+        StarDraw    (250 + i*100, 50 + i*10, 0.125*i, TX_YELLOW);
+        }
+     txSleep (1000);
      txTextOut (-450 + t*10, 300, " ЗНАЧИТ");
-
 
      while (t >= 0)
         {
-
         txSetFillColor (RGB(255 - t*3, 255 - t*3, 255 - t*3));
         txSetColor     (RGB(255 - t*3, 255 - t*3, 255 - t*3));
-
         txRectangle (0, 400, 800, 600);
 
         txSetColor (TX_BLACK);
-
         txSelectFont ("Segoe Script", 90);
         txTextOut (350 - t*10, 400, "это ");
+
         txSelectFont ("Segoe Script", 80);
         txTextOut (200 - t*10, 480, "кому-нибудь нужно");
-
 
         txSleep (50);
         t--;
