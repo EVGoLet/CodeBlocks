@@ -10,7 +10,7 @@
 //}===========================================================================
 #include "TXLib.h"
 void StartTitles();
-void StarDraw   (double x, double y,double size,COLORREF starColor);
+void StarDraw   (int x, int y, double size, COLORREF starColor);
 
 void SkyDraw    (int x1, int y1, int x2, int y2);
 void GrassDraw  (int x1, int y1, int x2, int y2);
@@ -52,16 +52,14 @@ int main ()
     return 0;
     }
 
-void StarDraw   (double x, double y, double size, COLORREF starColor)
+void StarDraw   (int x, int y, double size, COLORREF starColor)
     {
-    int j = 0;
     txSetColor     (starColor);
     txSetFillColor (starColor);
-/*
- */
-        POINT star[8] = {{x, y - 90*size}, {x + 30*size, y - 30*size}, {x + 90*size, y},
-                        {x + 30*size, y + 30*size}, {x, y + 90*size}, {x - 30*size, y + 30*size},
-                        {x - 90*size, y},{x - 30*size, y - 30*size} };
+
+    POINT star[8] = {{x, y - 90*size}, {x + 30*size, y - 30*size}, {x + 90*size, y},
+                    {x + 30*size, y + 30*size}, {x, y + 90*size}, {x - 30*size, y + 30*size},
+                    {x - 90*size, y},{x - 30*size, y - 30*size} };
           txPolygon (star, 8);
 
 /*         txLine (x,           y - 90*size, x + 30*size, y - 30*size);
@@ -79,7 +77,7 @@ void StarDraw   (double x, double y, double size, COLORREF starColor)
 
 void StartTitles()
     {
-   // txPlaySound ("музыка");
+    txPlaySound ("sound/titr.wav");
     int t = 0;
 
     while (t <= 75)
@@ -96,9 +94,9 @@ void StartTitles()
         Sleep (50);
         t++;
         }
-     for (int i = 1; i<=5; i++)
+     for (int i = 1; i<=8; i++)
         {
-        StarDraw    (250 + i*100, 50 + i*10, 0.125*i, TX_YELLOW);
+        StarDraw    (rand()%(300-250+1) + 250 + i*100, rand()%(250-10+1) + 10 + i*10, 0.125*(rand()%(4-1)+1), TX_YELLOW);
         }
      txSleep (1000);
      txTextOut (-450 + t*10, 300, " ЗНАЧИТ");
@@ -122,7 +120,7 @@ void StartTitles()
 
 
     txSleep (2000);
-    //txPlaySound (NULL);  завершение музыки
+    txPlaySound (NULL);  //завершение музыки
     }
 
 
