@@ -10,18 +10,23 @@
 //}===========================================================================
 #include "TXLib.h"
 void StartTitles();
-void StarDraw   (int x, int y, double size, COLORREF starColor);
-
-void SkyDraw    (int x1, int y1, int x2, int y2);
-void GrassDraw  (int x1, int y1, int x2, int y2);
-void SunDraw    (int x,  int y,  int r,  double size);
-void CrowDraw   (double x0, double y0, double x1, double y1, double startAngle, double totalAngle, int sizeX, int sizeY, COLORREF color,
-double hand, double legs, double head, double twist);
+void Utro();
+void StarDraw     (int x, int y, double size, COLORREF starColor);
+void SkyDraw      (int x1, int y1, int x2, int y2);
+void GrassDraw    (int x1, int y1, int x2, int y2);
+void SunDraw      (int x,  int y,  int r,  double size);
+void WoodListDraw (int x, int y, double sizeR, double sizeX, double sizeY, COLORREF stvolColor, COLORREF granstColor,
+                   COLORREF listColor, COLORREF grancrColor, double stvol, double leaf);
+void CrowDraw     (double x0, double y0, double x1, double y1, double startAngle, double totalAngle, int sizeX, int sizeY, COLORREF color,
+                   double hand, double legs, double head, double twist);
 int main ()
     {
     txCreateWindow (800, 600);
 
-    StartTitles();
+    //StartTitles();
+
+    Utro();
+
 
   //  SkyDraw     (0, 0, 800, 440);
   //  GrassDraw   (0, 440, 800, 600);
@@ -57,22 +62,11 @@ void StarDraw   (int x, int y, double size, COLORREF starColor)
     txSetColor     (starColor);
     txSetFillColor (starColor);
 
-    POINT star[8] = {{x, y - 90*size}, {x + 30*size, y - 30*size}, {x + 90*size, y},
-                    {x + 30*size, y + 30*size}, {x, y + 90*size}, {x - 30*size, y + 30*size},
-                    {x - 90*size, y},{x - 30*size, y - 30*size} };
+    POINT star[8] = {{x, ROUND(y - 90*size)}, {ROUND(x + 30*size), ROUND(y - 30*size)},
+                     {x + ROUND(90*size), y}, {ROUND(x + 30*size), ROUND(y + 30*size)},
+                     {x, ROUND(y + 90*size)}, {ROUND(x - 30*size), ROUND(y + 30*size)},
+                     {ROUND(x - 90*size), y}, {ROUND(x - 30*size), ROUND(y - 30*size)} };
           txPolygon (star, 8);
-
-/*         txLine (x,           y - 90*size, x + 30*size, y - 30*size);
- *         txLine (x + 30*size, y - 30*size, x + 90*size, y);
- *         txLine (x + 90*size, y,           x + 30*size, y + 30*size);
- *         txLine (x + 30*size, y + 30*size, x,           y + 90*size);
- *         txLine (x,           y + 90*size, x - 30*size, y + 30*size);
- *         txLine (x - 30*size, y + 30*size, x - 90*size, y);
- *         txLine (x - 90*size, y,           x - 30*size, y - 30*size);
- *         txLine (x - 30*size, y - 30*size, x,           y - 90*size);
- */
-
-  //      }
     }
 
 void StartTitles()
@@ -123,7 +117,17 @@ void StartTitles()
     txPlaySound (NULL);  //завершение музыки
     }
 
+void Utro()
+    {
+    txBegin();
 
+    SkyDraw      (0, 0, 800, 440);
+    GrassDraw    (0, 440, 800, 600);
+    SunDraw      (120, 90, 50, 1) ;
+    WoodListDraw (200, 320, 1, 1, 1, TX_BROWN, TX_LIGHTRED, TX_LIGHTGREEN, TX_GREEN, 0, 1);
+
+    txEnd();
+    }
 
 void SkyDraw (int x1, int y1, int x2, int y2)
     {
@@ -164,6 +168,29 @@ void SunDraw (int x, int y, int r, double size)
     txCircle (x + 20*size, y - 20*size, r/8);
 
     }
+
+void WoodListDraw (int x, int y, double sizeR, double sizeX, double sizeY, COLORREF stvolColor, COLORREF granstColor,
+                COLORREF cronaColor, COLORREF grancrColor, double stvol, double leaf)
+    {
+    txSetColor (granstColor, 2);
+    txSetFillColor (stvolColor);
+
+    txRectangle (x, y, x + (40 + stvol)*sizeX, y + 200*sizeY);
+
+    txSetColor (grancrColor, 2);
+    txSetFillColor (cronaColor);
+
+    txCircle (x + (20 - leaf)*sizeX,   y + 100*sizeY,          50*sizeR);
+    txCircle (x + (10 - leaf)*sizeX,   y + leaf,               30*sizeR);
+    txCircle (x - (30 + leaf*4)*sizeX, y + (100 + leaf)*sizeY, 30*sizeR);
+    txCircle (x + (70 - leaf*4)*sizeX, y + (110 + leaf)*sizeY, 30*sizeR);
+    txCircle (x + (50 - leaf)*sizeX,   y + 50*sizeY,           50*sizeR);
+    txCircle (x - (30 + leaf)*sizeX,   y + 40*sizeY,           50*sizeR);
+    txCircle (x + (20 - leaf)*sizeX,   y,                      50*sizeR);
+    txCircle (x - (30 + leaf*4)*sizeX, y + leaf,               30*sizeR);
+
+    }
+
 
 //{void CrowDraw   (double x0, double y0, double x1, double y1, double startAngle, double totalAngle, int sizeX, int sizeY, COLORREF color,
 //double hand, double legs, double head, double twist)
