@@ -28,7 +28,7 @@ int main ()
     {
     txCreateWindow (800, 600);
 
-    StartTitles();
+   // StartTitles();
     Utro();
 
 
@@ -135,7 +135,7 @@ void Utro()
         {
         WoodListDraw(200, 320, 1, 1, 1, TX_BROWN, TX_LIGHTRED, TX_LIGHTGREEN, TX_GREEN, 0, x%2);
         WoodDraw    (650, 450, 1, 1, TX_GREEN, x%5);
-        SunDraw     (120, 90, 50, 1, 1, TX_YELLOW, TX_YELLOW, x%10, 8, x%10) ;
+        SunDraw     (120, 90, 50, 1, 1, TX_YELLOW, TX_LIGHTRED, x%10, 8, x%10) ;
         txSleep (300);
         x -= 55;
         }
@@ -163,13 +163,11 @@ void SunDraw (int x, int y, int r, double size, double sizeY, COLORREF diskColor
     txSetFillColor (diskColor);
     txSetColor     (luchColor,2);
 
-    txCircle (x, y, r);         //лучи переделать отрезками+ (70 + luch)*sizeY
-    //txLine (x - (100+smile)*size, y + (10 - smile)*sizeY,           x + (100+smile)*size, y + 5*sizeY);
     txLine (x - 100*size, y,           x + 100*size, y);
     txLine (x -  80*size, y - 60*size, x +  70*size, y +  70*size);
     txLine (x,            y - 90*size, x,            y + 100*size);
     txLine (x -  80*size, y + 70*size, x +  90*size, y -  60*size);
-
+    txCircle (x, y, r);
 
     txSetFillColor (RGB (0, 0, 255));    //глаз
     txSetColor     (RGB (0, 0, 0), 1);
@@ -185,12 +183,13 @@ void SunDraw (int x, int y, int r, double size, double sizeY, COLORREF diskColor
 
     txSetColor (TX_BLACK, 3);         //усы
     txLine (x - 20*size, y + (10 - smile)*sizeY, x +  5*size, y + 5*sizeY);
-    txLine (x +  5*size, y + 7*sizeY,            x + 30*size, y + (20 - smile)*sizeY);
+    txLine (x +  5*size, y + 5*sizeY,            x + 30*size, y + (10 - smile)*sizeY);
 
     txSetFillColor (RGB (255, 0, 0));  //рот
     txSetColor     (RGB (255, 0, 0), 2);
 
     txArc (x - 10*size, y + (20 - smile)*sizeY, x + 10*size, y + 10*sizeY, 180, 180);
+    txArc (x - 10*size, y + (30 - smile)*sizeY, x + 10*size, y + 10*sizeY, 180, 180);
     //txArc (100, 100, 120, 150, 45, 90);
     }
 
