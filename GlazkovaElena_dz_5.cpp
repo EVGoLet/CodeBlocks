@@ -14,17 +14,18 @@ void Utro();
 void StarDraw     (int x, int y, double size, COLORREF starColor);
 void SkyDraw      (int x1, int y1, int x2, int y2);
 void GrassDraw    (int x1, int y1, int x2, int y2);
-void SunDraw      (int x,  int y,  int r,  double size);
+void SunDraw      (int x,  int y,  int r,  double size, double sizeY, COLORREF diskColor, COLORREF luchColor,
+                   double luch, double eyes, double smile);
 void WoodListDraw (int x, int y, double sizeR, double sizeX, double sizeY, COLORREF stvolColor, COLORREF granstColor,
                    COLORREF listColor, COLORREF grancrColor, double stvol, double leaf);
 void CrowDraw     (double x0, double y0, double x1, double y1, double startAngle, double totalAngle, int sizeX, int sizeY, COLORREF color,
                    double hand, double legs, double head, double twist);
+void WoodDraw     (int x, int y, double sizeX, double sizeY, COLORREF color, double leaf);
 int main ()
     {
     txCreateWindow (800, 600);
 
-    //StartTitles();
-
+    StartTitles();
     Utro();
 
 
@@ -88,14 +89,14 @@ void StartTitles()
         Sleep (50);
         t++;
         }
-     for (int i = 1; i<=8; i++)
+    for (int i = 1; i<=8; i++)
         {
-        StarDraw    (rand()%(300-250+1) + 250 + i*100, rand()%(250-10+1) + 10 + i*10, 0.125*(rand()%(4-1)+1), TX_YELLOW);
+        StarDraw  (rand()%(300-250+1) + 250 + i*100, rand()%(250-10+1) + 10 + i*10, 0.125*(rand()%(4-1)+1), TX_YELLOW);
         }
-     txSleep (1000);
-     txTextOut (-450 + t*10, 300, " ÇÍÀ×ÈÒ");
+    txSleep (1000);
+    txTextOut (-450 + t*10, 300, " ÇÍÀ×ÈÒ");
 
-     while (t >= 0)
+    while (t >= 0)
         {
         txSetFillColor (RGB(255 - t*3, 255 - t*3, 255 - t*3));
         txSetColor     (RGB(255 - t*3, 255 - t*3, 255 - t*3));
@@ -123,9 +124,18 @@ void Utro()
 
     SkyDraw      (0, 0, 800, 440);
     GrassDraw    (0, 440, 800, 600);
-    SunDraw      (120, 90, 50, 1) ;
     WoodListDraw (200, 320, 1, 1, 1, TX_BROWN, TX_LIGHTRED, TX_LIGHTGREEN, TX_GREEN, 0, 1);
+    WoodDraw     (650, 450, 1, 1, TX_GREEN, 1);
 
+    int x = 800;
+    while (x >= 100)
+        {
+        WoodListDraw(200, 320, 1, 1, 1, TX_BROWN, TX_LIGHTRED, TX_LIGHTGREEN, TX_GREEN, 0, x%2);
+        WoodDraw    (650, 450, 1, 1, TX_GREEN, x%5);
+        SunDraw     (120, 90, 50, 1, 1, TX_YELLOW, TX_YELLOW, x%10, 8, x%10) ;
+        txSleep (300);
+        x -= 55;
+        }
     txEnd();
     }
 
@@ -144,10 +154,11 @@ void GrassDraw (int x1, int y1, int x2, int y2)
     txRectangle (x1, y1, x2, y2);
     }
 
-void SunDraw (int x, int y, int r, double size)
+void SunDraw (int x, int y, int r, double size, double sizeY, COLORREF diskColor, COLORREF luchColor,
+                   double luch, double eyes, double smile)
     {
-    txSetFillColor (RGB (255, 255, 0));
-    txSetColor     (RGB (255, 255, 0), 5);
+    txSetFillColor (diskColor);
+    txSetColor     (luchColor);
 
     txCircle (x, y, r);
     txLine (x - 100*size, y,           x + 100*size, y);
@@ -191,6 +202,20 @@ void WoodListDraw (int x, int y, double sizeR, double sizeX, double sizeY, COLOR
 
     }
 
+void WoodDraw (int x, int y, double sizeX, double sizeY, COLORREF color, double leaf)
+    {
+    txSetColor (RGB (128, 100, 0));
+    txSetFillColor (RGB (128, 100, 0));
+    txRectangle (x - 10, y * sizeY, x , y * sizeY - 100);
+
+    txSetColor (color);
+    txSetFillColor (color);
+    POINT wood[7] = {{ROUND(x - (50 - leaf)*sizeX), ROUND((y * sizeY - 50)/2)}, {ROUND(x + (0 - leaf)*sizeX), ROUND((y * sizeY - 100)/2)},
+                     {ROUND(x + (50 + leaf)*sizeX), ROUND((y * sizeY - 50)/2)}, {ROUND(x + (0 - leaf)*sizeX), ROUND((y * sizeY - 50)/2)},
+                     {ROUND(x - (50 - leaf)*sizeX), ROUND(y * sizeY - 50)}, {ROUND(x + (0 - leaf)*sizeX), ROUND(y * sizeY - 100)},
+                     {ROUND(x + (50 + leaf)*sizeX), ROUND(y * sizeY - 50)}};
+          txPolygon (wood, 7);
+    }
 
 //{void CrowDraw   (double x0, double y0, double x1, double y1, double startAngle, double totalAngle, int sizeX, int sizeY, COLORREF color,
 //double hand, double legs, double head, double twist)
