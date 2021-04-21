@@ -14,6 +14,7 @@ void Utro();
 void StarDraw     (int x, int y, double size, COLORREF starColor);
 void SkyDraw      (int x1, int y1, int x2, int y2);
 void GrassDraw    (int x1, int y1, int x2, int y2);
+
 void SunDraw      (int x,  int y,  int r,  double size, double sizeY, COLORREF diskColor, COLORREF luchColor,
                    double luch, double eyes, double smile);
 void WoodListDraw (int x, int y, double sizeR, double sizeX, double sizeY, COLORREF stvolColor, COLORREF granstColor,
@@ -21,6 +22,8 @@ void WoodListDraw (int x, int y, double sizeR, double sizeX, double sizeY, COLOR
 void CrowDraw     (double x0, double y0, double x1, double y1, double startAngle, double totalAngle, int sizeX, int sizeY, COLORREF color,
                    double hand, double legs, double head, double twist);
 void WoodDraw     (int x, int y, double sizeX, double sizeY, COLORREF color, double leaf);
+void ChildrenDraw (int x, int y, int sizeX, int sizeY, COLORREF color,
+                   double hand, double legs, double head, double twist);
 int main ()
     {
     txCreateWindow (800, 600);
@@ -34,7 +37,7 @@ int main ()
  //   SunDraw     (120, 90, 50, 1) ;
 
  //   CrowDraw    (
-//    ChildrenDraw (500, 450, 50, 100, TX_RED, 0, 0, 0, 0);
+ChildrenDraw (500, 450, 50, 100, TX_RED, 0, 0, 0, 0);
 //    WoodDraw (650, 450, 1, TX_GREEN);
 //    AirplaneDraw (200, 100, 30);
 //    AirplaneDraw (450, 100, 30);
@@ -227,7 +230,23 @@ void WoodDraw (int x, int y, double sizeX, double sizeY, COLORREF color, double 
                      {ROUND(x + (50 + leaf)*sizeX), ROUND(y * sizeY - 50)}};
           txPolygon (wood, 7);
     }
+void ChildrenDraw (int x, int y, int sizeX, int sizeY, COLORREF color,
+double hand, double legs, double head, double twist)
+    {
+    txSetColor (color);
+    txSetFillColor (color);
 
+    POINT star[3] = {{x - sizeX/2, y - (0.35 + twist) * sizeY }, {x, y - 0.55 * sizeY }, {x + sizeX/2, y - (0.35 + twist) * sizeY }};
+       txPolygon (star, 3);
+
+    txLine (x, y - (0.35 + twist)*sizeY, x,                        y - 0.7*sizeY);
+    txLine (x, y - (0.35 + twist)*sizeY, x - (0.2 + legs) * sizeX, y);
+    txLine (x, y - (0.45 + twist)*sizeY, x + (0.5 + legs) * sizeX, y);
+    txLine (x, y - 0.65*sizeY,   x - sizeX/2,   y - 0.4 * sizeY);
+    txLine (x, y - 0.65*sizeY, x + sizeX/1.2, y - (0.65 + hand) * sizeY);
+
+    txCircle (x, y - sizeY + (0.3 + head) * sizeX, 0.3 * sizeX);
+    }
 //{void CrowDraw   (double x0, double y0, double x1, double y1, double startAngle, double totalAngle, int sizeX, int sizeY, COLORREF color,
 //double hand, double legs, double head, double twist)
   //  {
