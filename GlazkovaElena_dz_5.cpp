@@ -236,8 +236,8 @@ double hand, double legs, double head, double twist)
     txSetColor (color);
     txSetFillColor (color);
 
-    POINT star[3] = {{x - sizeX/2, y - (0.35 + twist) * sizeY }, {x, y - 0.55 * sizeY }, {x + sizeX/2, y - (0.35 + twist) * sizeY }};
-       txPolygon (star, 3);
+    POINT star[3] = {{ROUND(x - sizeX/2), ROUND(y - (0.35 + twist) * sizeY )}, {x, ROUND(y - 0.55 * sizeY)}, {ROUND(x + sizeX/2), ROUND(y - (0.35 + twist)*sizeY)}};
+          txPolygon (star, 3);
 
     txLine (x, y - (0.35 + twist)*sizeY, x,                        y - 0.7*sizeY);
     txLine (x, y - (0.35 + twist)*sizeY, x - (0.2 + legs) * sizeX, y);
