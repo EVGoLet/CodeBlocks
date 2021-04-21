@@ -25,7 +25,7 @@ int main ()
     {
     txCreateWindow (800, 600);
 
-    //StartTitles();
+    StartTitles();
     Utro();
 
 
