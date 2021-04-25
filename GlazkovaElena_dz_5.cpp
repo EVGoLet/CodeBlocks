@@ -19,8 +19,8 @@ void SunDraw      (int x,  int y,  int r,  double size, double sizeY, COLORREF d
                    double luch, double eyes, double smile);
 void WoodListDraw (int x, int y, double sizeR, double sizeX, double sizeY, COLORREF stvolColor, COLORREF granstColor,
                    COLORREF listColor, COLORREF grancrColor, double stvol, double leaf);
-void CrowDraw     (double x0, double y0, double x1, double y1, double startAngle, double totalAngle, int sizeX, int sizeY, COLORREF color,
-                   double hand, double legs, double head, double twist);
+void CrowDraw     (int x0, int y0, int x1, int y1, int sizeX, int sizeY, COLORREF color,COLORREF wingcolor, COLORREF legcolor,
+                   double twist);
 void WoodDraw     (int x, int y, double sizeX, double sizeY, COLORREF color, double leaf);
 void ChildrenDraw (int x, int y, int sizeX, int sizeY, COLORREF color,
                    double hand, double legs, double head, double twist);
@@ -28,17 +28,11 @@ int main ()
     {
     txCreateWindow (800, 600);
 
-   // StartTitles();
+    StartTitles();
     Utro();
 
+    ChildrenDraw (500, 450, 50, 100, TX_RED, 0, 0, 0, 0);
 
-  //  SkyDraw     (0, 0, 800, 440);
-  //  GrassDraw   (0, 440, 800, 600);
- //   SunDraw     (120, 90, 50, 1) ;
-
- //   CrowDraw    (
-ChildrenDraw (500, 450, 50, 100, TX_RED, 0, 0, 0, 0);
-//    WoodDraw (650, 450, 1, TX_GREEN);
 //    AirplaneDraw (200, 100, 30);
 //    AirplaneDraw (450, 100, 30);
 
@@ -125,10 +119,11 @@ void Utro()
     {
     txBegin();
 
-    SkyDraw      (0, 0, 800, 440);
+    SkyDraw      (0,   0, 800, 440);
     GrassDraw    (0, 440, 800, 600);
     WoodListDraw (200, 320, 1, 1, 1, TX_BROWN, TX_LIGHTRED, TX_LIGHTGREEN, TX_GREEN, 0, 1);
     WoodDraw     (650, 450, 1, 1, TX_GREEN, 1);
+
 
     int x = 800;
     while (x >= 100)
@@ -139,6 +134,7 @@ void Utro()
         txSleep (300);
         x -= 55;
         }
+    CrowDraw     (620, 400, 670, 440, 1, 1, RGB (255, 157, 60), RGB (255, 255, 255), RGB (125, 125, 255), 5);
     txEnd();
     }
 
@@ -246,13 +242,55 @@ double hand, double legs, double head, double twist)
 
     txCircle (x, y - sizeY + (0.3 + head) * sizeX, 0.3 * sizeX);
     }
-//{void CrowDraw   (double x0, double y0, double x1, double y1, double startAngle, double totalAngle, int sizeX, int sizeY, COLORREF color,
-//double hand, double legs, double head, double twist)
-  //  {
-    //txSetFillColor (RGB (0, 0, 0));
-    //txSetColor     (RGB (0, 0, 0));
+void CrowDraw     (int x0, int y0, int x1, int y1, int sizeX, int sizeY, COLORREF color, COLORREF wingcolor, COLORREF legcolor,
+                   double twist)
+    {
+    txSetColor (color);
+    txSetFillColor (color);
 
-    //txArc (500, 100, 550, 150, 180, 180);
+    txArc (x0, y0, x1, y1, 0, 180);
+    txLine (x0, y0 + 18, x1, y0 + 18);
 
-    //}
-//}
+    POINT body[10] = {{ROUND(x1), ROUND(y0 +22)}, {ROUND(x1 + 5), ROUND(y0 + 22 + 100)}, {ROUND(x1 + 120), ROUND(y0 + 22 + 105)},
+                      {ROUND(x1 +  80), ROUND(y0 + 22 + 100)}, {ROUND(x1 + 115), ROUND(y0 + 22 + 98)}, {ROUND(x1 + 85), ROUND(y0 + 22 + 95)},
+                      {ROUND(x1 + 110), ROUND(y0 + 22 + 95)}, {ROUND(x1 + 120), ROUND(y0 + 22 + 93)},{ROUND(x1 + 70), ROUND(y0 + 22 + 85)},
+                      {ROUND(x1 +  30), ROUND(y0 + 20)}};
+          txPolygon (body, 10);
+
+    txCircle (x1 + 10, y0 + 10, 25);
+
+    txSetColor (wingcolor);
+    txSetFillColor (wingcolor);
+
+    POINT wing[6] = {{ROUND(x1 + 30), ROUND(y0 + 20)}, {ROUND(x1 +  35), ROUND(y0 + 20 + 80)},
+                     {ROUND(x1 + 45), ROUND(y0 + 20 + 75)}, {ROUND(x1 + 50), ROUND(y0 + 20 + 80)},
+                     {ROUND(x1 + 55), ROUND(y0 + 20 + 74)}, {ROUND(x1 + 70), ROUND(y0 + 22 + 83)}
+                    };
+          txPolygon (wing, 6);
+
+    txSetColor (legcolor);
+    txSetFillColor (legcolor);
+
+    POINT legl[3] = {{ROUND(x1 + 20), ROUND(y0 + 22 + 100)}, {ROUND(x1 + 23), ROUND(y0 + 22 + 130)},
+                     {ROUND(x1 + 25), ROUND(y0 + 22 + 100)},
+                    };
+          txPolygon (legl, 3);
+
+    txLine (x1 + 23, y0 + 22 + 130, x1 + 23 - 5, y0 + 22 + 130 + 5);
+    txLine (x1 + 23, y0 + 22 + 130, x1 + 23,     y0 + 22 + 130 + 5);
+    txLine (x1 + 23, y0 + 22 + 130, x1 + 23 + 5, y0 + 22 + 130 + 5);
+
+    POINT legr[3] = {{ROUND(x1 + 40), ROUND(y0 + 22 + 100)}, {ROUND(x1 + 43), ROUND(y0 + 20 + 130)},
+                     {ROUND(x1 + 45), ROUND(y0 + 22 + 100)}
+                    };
+          txPolygon (legr, 3);
+
+    txLine (x1 + 43, y0 + 22 + 130, x1 + 43 - 5, y0 + 22 + 130 + 5);
+    txLine (x1 + 43, y0 + 22 + 130, x1 + 43,     y0 + 22 + 130 + 5);
+    txLine (x1 + 43, y0 + 22 + 130, x1 + 43 + 5, y0 + 22 + 130 + 5);
+
+    txCircle (x1 + 10, y0 + 5, 15);
+
+    txSetFillColor (TX_BLACK);
+    txCircle (x1 + 5, y0 + 5, 5);
+    }
