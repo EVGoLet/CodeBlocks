@@ -6,3 +6,6 @@
 
 
 ![image](https://user-images.githubusercontent.com/45990809/115983139-eafdd000-a5b8-11eb-8619-503647e49c06.png)
+Графические примитивы
+
+![image](https://user-images.githubusercontent.com/45990809/115983272-aaeb1d00-a5b9-11eb-8e96-1a2a9d75bace.png)
